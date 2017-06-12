@@ -1,114 +1,130 @@
-﻿using System.Collections;
+﻿using Assets;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Group : MonoBehaviour {
     float lastFall = 0;
+
+    public Grid GameController;
+
+    private bool registered;
+
     // Use this for initialization
     void Start()
     {
-        if (!isValidGridPos())
+        FindGamecontrollerIfNull();
+
+        if (GameController == null)
         {
             Debug.Log("GAME OVER");
             Destroy(gameObject);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		if(Input.GetKeyDown(KeyCode.LeftArrow))
+
+    // Update is called once per frame
+    void Update ()
+    {
+		if(!registered)
         {
-            transform.position += new Vector3(-1, 0, 0);
-
-            if(isValidGridPos())
+            if(GameController.RegisterMovingObject(this))
             {
-                updateGrid();
+                registered = true;
             }
-            else
-            {
-                transform.position += new Vector3(1, 0, 0);
-            }
-        }
-        else if(Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            transform.position += new Vector3(1, 0, 0);
-
-            if (isValidGridPos())
-            {
-                updateGrid();
-            }
-            else
-            {
-                transform.position += new Vector3(-1, 0, 0);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            transform.position += new Vector3(0, 0, -90);
-
-            if (isValidGridPos())
-            {
-                updateGrid();
-            }
-            else
-            {
-                transform.position += new Vector3(0, 0, 90);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            transform.position += new Vector3(0, -1, 0);
-
-            if (isValidGridPos())
-            {
-                updateGrid();
-            }
-            else
-            {
-                transform.position += new Vector3(0, 1, 0);
-
-                Grid.deleteFullRows();
-                FindObjectOfType<Spawner>().spawnNext();
-
-                enabled = false;
-            }
-            lastFall = Time.time;
         }
     }
 
-    bool isValidGridPos()
+    public void MoveOneBlock(Direction direction)
     {
-        foreach(Transform child in transform)
+        if (CanMoveOneBlock(direction))
         {
-            Vector2 v = Grid.roundVec2(child.position);
+            Vector3 pos = transform.position;
 
-            if (!Grid.insideBorder(v))
-                return false;
+            if (direction == Direction.DOWN)
+            {
+                pos.y -= 1;
+            }
+            else if(direction == Direction.LEFT)
+            {
+                pos.x -= 1;
+            }
+            else
+            {
+                pos.x += 1;
+            }
 
-            if (Grid.grid[(int)v.x, (int)v.y] != null &&
-                Grid.grid[(int)v.x, (int)v.y].parent != transform)
-                return false;
+            transform.position = pos;
         }
+    }
+
+    /// <summary>
+    /// Move Element one block
+    /// </summary>
+    /// <returns></returns>
+    public bool CanMoveOneBlock(Direction direction)
+    {
+        List<Transform> childs = new List<Transform>();
+
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            childs.Add(transform.GetChild(i));
+        }
+
+        foreach(Transform child in childs)
+        {
+            Vector3 newPosition = GetNewPosition(direction, child);
+
+            if((int)Math.Round(newPosition.x) == (int)Math.Round(child.position.x) &&
+                (int)Math.Round(newPosition.y) == (int)Math.Round(child.position.y) &&
+                (int)Math.Round(newPosition.z) == (int)Math.Round(child.position.z))
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 
-    void updateGrid()
+    private Vector3 GetNewPosition(Direction direction, Transform gameBlock)
     {
-        for(int y=0; y<Grid.h; ++y)
+        Vector3 expectedPosition = gameBlock.position;
+        if (direction == Direction.DOWN)
         {
-            for(int x=0; x<Grid.w; ++x)
-            {
-                if(Grid.grid[x,y]!=null)
-                {
-                    if (Grid.grid[x, y].parent == transform)
-                        Grid.grid[x, y] = null;
-                }
-            }
+            expectedPosition += new Vector3(0, -1, 0);
         }
-        foreach(Transform child in transform)
+        else if (direction == Direction.LEFT)
         {
-            Vector2 v = Grid.roundVec2(child.position);
-            Grid.grid[(int)v.x, (int)v.y] = child;
+            expectedPosition += new Vector3(-1, 0, 0);
+        }
+        else
+        {
+            expectedPosition += new Vector3(1, 0, 0);
+        }
+
+        int expectedPositionY = (int)Math.Round(expectedPosition.y);
+        int expectedPositionX = (int)Math.Round(expectedPosition.x);
+
+        if (GameController.IsValidPosition(expectedPositionY, expectedPositionX))
+        {
+            return expectedPosition;
+        }
+        else
+        {
+            return gameBlock.position;
+        }
+    }
+
+    private void FindGamecontrollerIfNull()
+    {
+        if (GameController == null)
+        {
+            Grid temp = GetComponentInParent<Grid>();
+
+            if (temp.tag == "GameController")
+            {
+                GameController = temp;
+            }
         }
     }
 }

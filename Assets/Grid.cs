@@ -1,70 +1,152 @@
-﻿using System.Collections;
+﻿using Assets;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour {
-    public static int w = 10;
-    public static int h = 20;
-    public static Transform[,] grid = new Transform[w, h];
-	// Use this for initialization
-	void Start () {
-		
+public class Grid : MonoBehaviour
+{
+    public int w = 10;
+    public int h = 20;
+
+    private GameObject[][] grid;
+
+    private Group movingGroup;
+
+    private long lastUpdated;
+    private long actualFrame;
+
+    // Use this for initialization
+    void Start ()
+    {
+        grid = new GameObject[h][];
+
+		for(int y = 0; y < h; y++)
+        {
+            grid[y] = new GameObject[w];
+        }
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public static Vector2 roundVec2(Vector2 v)
+	void Update ()
     {
-        return new Vector2(Mathf.Round(v.x),
-                            Mathf.Round(v.y));
-    }
+        actualFrame++;
 
-    public static bool insideBorder(Vector2 pos)
-    {
-        return ((int)pos.x >= 0 &&
-                (int)pos.x < w &&
-                (int)pos.y >= 0);
-    }
-
-    public static void deleteRow(int y)
-    {
-        for(int x = 0; x<w; ++x)
+        if(lastUpdated + 25 < actualFrame)
         {
-            Destroy(grid[x, y].gameObject);
-            grid[x, y] = null;
+            if (Input.GetKey(KeyCode.J))
+            {
+                movingGroup.MoveOneBlock(Direction.LEFT);
+            }
+            else if (Input.GetKey(KeyCode.L))
+            {
+                movingGroup.MoveOneBlock(Direction.RIGHT);
+            }
+            else if (Input.GetKey(KeyCode.K))
+            {
+                movingGroup.MoveOneBlock(Direction.DOWN);
+            }
+
+            if (IsMovingObjectOnBottom())
+            {
+                ResolveMovingObject();
+                DeleteFullRows();
+                FindObjectOfType<Spawner>().spawnNext();
+            }
+
+            lastUpdated = actualFrame;
         }
     }
 
-    public static void decreseRow(int y)
+    public bool RegisterMovingObject(Group newGroup)
+    {
+        if (movingGroup == null)
+        {
+            movingGroup = newGroup;
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool IsMovingObjectOnBottom()
+    {
+        return (!movingGroup.CanMoveOneBlock(Direction.DOWN));
+    }
+
+    private void ResolveMovingObject()
+    {
+        List<Transform> childs = new List<Transform>();
+
+        for (int i = 0; i < movingGroup.transform.childCount; i++)
+        {
+            childs.Add(movingGroup.transform.GetChild(i));
+        }
+
+        foreach(Transform child in childs)
+        {
+            int rowNumber = (int)Math.Round(child.position.y);
+            int columnNumber = (int)Math.Round(child.position.x);
+            grid[rowNumber][columnNumber] = child.gameObject;
+        }
+        movingGroup = null;
+    }
+
+    public bool IsInsideBorder(Vector2 pos)
+    {
+        return ((int)pos.x >= 0 &&
+                (int)pos.x < w &&
+                (int)pos.y >= 0 &&
+                (int)pos.y < h);
+    }
+
+    public bool IsValidPosition(int y, int x)
+    {
+        return (IsInsideBorder(new Vector2(x, y)) &&
+            grid[y][x] == null);
+    }
+
+    private void DeleteRow(int y)
+    {
+        for(int x = 0; x<w; x++)
+        {
+            Destroy(grid[y][x].gameObject);
+        }
+    }
+
+    private void DecreaseRow(int y)
     {
         for(int x = 0; x<w; ++x)
         {
-            if(grid[x,y] != null)
+            if(grid[y][x] != null)
             {
-                grid[x, y - 1] = grid[x, y];
-                grid[x, y] = null;
-
-                grid[x, y - 1].position += new Vector3(0, -1, 0);
+                grid[y][x].transform.position += new Vector3(0, -1, 0);
             }
         }
     }
 
-    public static void decreseRowsAbove(int y)
+    public void DecreseRowsAbove(int y)
     {
-        for(int i = y; i<h; ++i)
+        for(int i = y; i<grid.Length; i++)
         {
-            decreseRow(i);
+            DecreaseRow(i);
+
+            if(i != grid.Length -1)
+            {
+                grid[i] = grid[i + 1];
+            }
+            else
+            {
+                grid[i] = new GameObject[w];
+            }
         }
     }
 
-    public static bool isRowFull(int y)
+    public bool IsRowFull(int y)
     {
-        for(int x=0; x<w; ++x)
+        for(int x=0; x<w; x++)
         {
-            if(grid[x,y] == null)
+            if(grid[y][x] == null)
             {
                 return false;
             }
@@ -72,14 +154,14 @@ public class Grid : MonoBehaviour {
         return true;
     }
 
-    public static void deleteFullRows()
+    public void DeleteFullRows()
     {
         for(int y=0; y<h; ++y)
         {
-            if(isRowFull(y))
+            if(IsRowFull(y))
             {
-                deleteRow(y);
-                decreseRowsAbove(y + 1);
+                DeleteRow(y);
+                DecreseRowsAbove(y + 1);
                 --y;
             }
         }
