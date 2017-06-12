@@ -111,6 +111,7 @@ public class Grid : MonoBehaviour
         for(int x = 0; x<w; x++)
         {
             Destroy(grid[y][x].gameObject);
+            grid[y][x] = null;
         }
     }
 
@@ -121,6 +122,8 @@ public class Grid : MonoBehaviour
             if(grid[y][x] != null)
             {
                 grid[y][x].transform.position += new Vector3(0, -1, 0);
+                grid[y - 1][x] = grid[y][x];
+                grid[y][x] = null;
             }
         }
     }
@@ -130,15 +133,6 @@ public class Grid : MonoBehaviour
         for(int i = y; i<grid.Length; i++)
         {
             DecreaseRow(i);
-
-            if(i != grid.Length -1)
-            {
-                grid[i] = grid[i + 1];
-            }
-            else
-            {
-                grid[i] = new GameObject[w];
-            }
         }
     }
 
