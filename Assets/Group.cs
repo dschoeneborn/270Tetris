@@ -11,6 +11,11 @@ public class Group : MonoBehaviour {
 
     private bool registered;
 
+    AudioSource audioSource;
+
+    public AudioClip rotateSFX;
+    public AudioClip downSFX;
+
     // Use this for initialization
     void Start()
     {
@@ -21,6 +26,8 @@ public class Group : MonoBehaviour {
             Debug.Log("GAME OVER");
             Destroy(gameObject);
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,6 +51,8 @@ public class Group : MonoBehaviour {
             if (direction == Direction.DOWN)
             {
                 pos.y -= 1;
+                //Brauche hier ne unterscheidung zwischen Benutzer down und System Down
+                //audioSource.PlayOneShot(downSFX);
             }
             else if(direction == Direction.LEFT)
             {
@@ -61,6 +70,9 @@ public class Group : MonoBehaviour {
     public void Rotate()
     {
         transform.Rotate(0, 0, 90);
+        
+        audioSource.PlayOneShot(rotateSFX);
+        
     }
 
     /// <summary>
