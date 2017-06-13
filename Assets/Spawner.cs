@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
     public Group[] groups;
-    public Vector3 startPosition;
     public Grid controller;
 
 	// Use this for initialization
@@ -21,7 +20,7 @@ public class Spawner : MonoBehaviour {
     {
         int i = Random.Range(0, groups.Length);
 
-        Group created = Instantiate(groups[i], startPosition, Quaternion.identity);
+        Group created = Instantiate(groups[i], transform.position, Quaternion.identity);
 
         created.GameController = controller;
     }
