@@ -3,18 +3,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Grid : MonoBehaviour
 {
+    private const int FRAMES_BETWEEN_KEY_UPDATE = 10;
+    private const int FRAMES_BETWEEN_MOVING_UPDATE = 40;
+
     public int w = 10;
     public int h = 20;
+
+    public Text PointsCounter;
 
     private GameObject[][] grid;
 
     private Group movingGroup;
 
-    private long lastUpdated;
+    private long lastUpdatedDown;
+    private long lastUpdatedKeys;
     private long actualFrame;
+
+    private bool lastFramespawnedItem = false;
+    private int points = 0;
 
     // Use this for initialization
     void Start ()
@@ -32,29 +42,73 @@ public class Grid : MonoBehaviour
     {
         actualFrame++;
 
-        if(lastUpdated + 25 < actualFrame)
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (Input.GetKey(KeyCode.J))
+            movingGroup.MoveOneBlock(Direction.LEFT);
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            movingGroup.MoveOneBlock(Direction.RIGHT);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            movingGroup.MoveOneBlock(Direction.DOWN);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            movingGroup.Rotate();
+        }
+
+        if (lastUpdatedKeys + FRAMES_BETWEEN_KEY_UPDATE < actualFrame)
+        {
+            if (PointsCounter != null)
+            {
+                PointsCounter.text = "Points: " + points;
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 movingGroup.MoveOneBlock(Direction.LEFT);
             }
-            else if (Input.GetKey(KeyCode.L))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
                 movingGroup.MoveOneBlock(Direction.RIGHT);
             }
-            else if (Input.GetKey(KeyCode.K))
+            if (Input.GetKey(KeyCode.DownArrow))
             {
                 movingGroup.MoveOneBlock(Direction.DOWN);
             }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                movingGroup.Rotate();
+            }
 
+            lastUpdatedKeys = actualFrame;
+        }
+
+        if (lastUpdatedDown + FRAMES_BETWEEN_MOVING_UPDATE < actualFrame)
+        {
             if (IsMovingObjectOnBottom())
             {
                 ResolveMovingObject();
                 DeleteFullRows();
+
+                if (lastFramespawnedItem)
+                {
+                    Destroy(this);
+                }
+
                 FindObjectOfType<Spawner>().spawnNext();
+                lastFramespawnedItem = true;
+            }
+            else
+            {
+                lastFramespawnedItem = false;
             }
 
-            lastUpdated = actualFrame;
+            movingGroup.MoveOneBlock(Direction.DOWN);
+
+            lastUpdatedDown = actualFrame;
         }
     }
 
@@ -154,6 +208,7 @@ public class Grid : MonoBehaviour
         {
             if(IsRowFull(y))
             {
+                points += 100;
                 DeleteRow(y);
                 DecreseRowsAbove(y + 1);
                 --y;

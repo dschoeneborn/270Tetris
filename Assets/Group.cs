@@ -58,6 +58,11 @@ public class Group : MonoBehaviour {
         }
     }
 
+    public void Rotate()
+    {
+        transform.Rotate(0, 0, 90);
+    }
+
     /// <summary>
     /// Move Element one block
     /// </summary>
