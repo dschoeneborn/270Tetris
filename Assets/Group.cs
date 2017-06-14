@@ -59,8 +59,9 @@ public class Group : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+#pragma warning disable 612
         transform.position = new Vector3(Position.x, Position.y, 10);
-
+#pragma warning restore 612
         if (!registered)
         {
             if(GameController.RegisterMovingObject(this))
@@ -79,7 +80,6 @@ public class Group : MonoBehaviour
             if (direction == Direction.DOWN)
             {
                 pos.y -= 1;
-                //Brauche hier ne unterscheidung zwischen Benutzer down und System Down
 
                 if(playsound)
                 {
@@ -127,6 +127,7 @@ public class Group : MonoBehaviour
             if((int)Math.Round(newPosition.x) == child.Position.x &&
                 (int)Math.Round(newPosition.y) == child.Position.y)
             {
+                audioSource.PlayOneShot(failSFX);
                 return false;
             }
         }
