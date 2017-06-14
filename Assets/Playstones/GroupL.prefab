@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33190417751546674}
   - component: {fileID: 65449943510447564}
   - component: {fileID: 23023921442441324}
+  - component: {fileID: 114561046053128796}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -57,6 +58,7 @@ GameObject:
   - component: {fileID: 33289083525437598}
   - component: {fileID: 65959495014962554}
   - component: {fileID: 23488084149539466}
+  - component: {fileID: 114967243364408782}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -75,6 +77,7 @@ GameObject:
   - component: {fileID: 33706567301837832}
   - component: {fileID: 65731659980096206}
   - component: {fileID: 23282274527509466}
+  - component: {fileID: 114054122039088616}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -93,6 +96,7 @@ GameObject:
   - component: {fileID: 33912188163628718}
   - component: {fileID: 65567448024108740}
   - component: {fileID: 23813732353769176}
+  - component: {fileID: 114789152406397082}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -453,6 +457,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114054122039088616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1673600913780070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878b9102eb144c948b7cb93ac9782eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114561046053128796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1044189473160202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878b9102eb144c948b7cb93ac9782eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114789152406397082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1989597188962808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878b9102eb144c948b7cb93ac9782eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114862851298114358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -465,5 +502,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameController: {fileID: 0}
-  rotateSFX: {fileID: 8300000, guid: 4844f435aec434c4492f6db237632870, type: 3}
-  downSFX: {fileID: 8300000, guid: 0ea51772565824b42bf50a771173fd88, type: 3}
+--- !u!114 &114967243364408782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1549868794266040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878b9102eb144c948b7cb93ac9782eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

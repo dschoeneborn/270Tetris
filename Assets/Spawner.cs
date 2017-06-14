@@ -26,6 +26,8 @@ public class Spawner : MonoBehaviour {
 
         Group created = Instantiate(groups[i], transform.position, Quaternion.identity);
 
+        created.Position = transform.position;
+
         created.GameController = controller;
         created.failSFX = failSFX;
         created.downSFX = downSFX;

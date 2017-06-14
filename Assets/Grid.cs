@@ -130,17 +130,19 @@ public class Grid : MonoBehaviour
 
     private void ResolveMovingObject()
     {
-        List<Transform> childs = new List<Transform>();
+        List<Playstone> childs = new List<Playstone>();
 
+#pragma warning disable CS0612 // Type or member is obsolete
         for (int i = 0; i < movingGroup.transform.childCount; i++)
         {
-            childs.Add(movingGroup.transform.GetChild(i));
+            childs.Add(movingGroup.transform.GetChild(i).GetComponent<Playstone>());
         }
+#pragma warning restore CS0612 // Type or member is obsolete
 
-        foreach(Transform child in childs)
+        foreach (Playstone child in childs)
         {
-            int rowNumber = (int)Math.Round(child.position.y);
-            int columnNumber = (int)Math.Round(child.position.x);
+            int rowNumber = (int)Math.Round(child.Position.y);
+            int columnNumber = (int)Math.Round(child.Position.x);
             grid[rowNumber][columnNumber] = child.gameObject;
         }
         movingGroup = null;

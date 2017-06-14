@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33948863806166364}
   - component: {fileID: 65346537662886664}
   - component: {fileID: 23791429506821814}
+  - component: {fileID: 114731890020254842}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -40,6 +41,7 @@ GameObject:
   - component: {fileID: 33286770566872544}
   - component: {fileID: 65243103702490182}
   - component: {fileID: 23641610320230294}
+  - component: {fileID: 114701718589274138}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -58,6 +60,7 @@ GameObject:
   - component: {fileID: 33827814400797136}
   - component: {fileID: 65539494995980108}
   - component: {fileID: 23490570666244174}
+  - component: {fileID: 114614490479110062}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -93,6 +96,7 @@ GameObject:
   - component: {fileID: 33353176357664736}
   - component: {fileID: 65790485485470658}
   - component: {fileID: 23195237826540018}
+  - component: {fileID: 114837720537379988}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -465,5 +469,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameController: {fileID: 0}
-  rotateSFX: {fileID: 8300000, guid: 4844f435aec434c4492f6db237632870, type: 3}
-  downSFX: {fileID: 8300000, guid: 0ea51772565824b42bf50a771173fd88, type: 3}
+--- !u!114 &114614490479110062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493098608150694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878b9102eb144c948b7cb93ac9782eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114701718589274138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1421262986934284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878b9102eb144c948b7cb93ac9782eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114731890020254842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1341846136203592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878b9102eb144c948b7cb93ac9782eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114837720537379988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1692829031973400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878b9102eb144c948b7cb93ac9782eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

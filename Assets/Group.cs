@@ -4,9 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Group : MonoBehaviour {
-    float lastFall = 0;
-
+public class Group : MonoBehaviour
+{
     public Grid GameController;
 
     private bool registered;
@@ -16,6 +15,32 @@ public class Group : MonoBehaviour {
     public AudioClip rotateSFX { get; set; }
     public AudioClip downSFX { get; set; }
     public AudioClip failSFX { get; set; }
+
+    private int X { get; set; }
+    private int Y { get; set; }
+
+    [Obsolete]
+    public new Transform transform
+    {
+        get
+        {
+            return base.transform;
+        }
+    }
+
+
+    public Vector2 Position
+    {
+        get
+        {
+            return new Vector2(X, Y);
+        }
+        set
+        {
+            X = (int)Math.Round(value.x);
+            Y = (int)Math.Round(value.y);
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -34,7 +59,9 @@ public class Group : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-		if(!registered)
+        transform.position = new Vector3(Position.x, Position.y, 10);
+
+        if (!registered)
         {
             if(GameController.RegisterMovingObject(this))
             {
@@ -47,7 +74,7 @@ public class Group : MonoBehaviour {
     {
         if (CanMoveOneBlock(direction))
         {
-            Vector3 pos = transform.position;
+            Vector2 pos = Position;
 
             if (direction == Direction.DOWN)
             {
@@ -68,13 +95,18 @@ public class Group : MonoBehaviour {
                 pos.x += 1;
             }
 
-            transform.position = pos;
+            Position = pos;
         }
     }
 
     public void Rotate()
     {
-        transform.Rotate(0, 0, 90);
+        List<Playstone> childs = GetChildPlaystones();
+
+        foreach(Playstone child in childs)
+        {
+            child.transform.RotateAround(transform.position, new Vector3(0, 0, 1), 90);
+        }
         
         audioSource.PlayOneShot(rotateSFX);
         
@@ -86,20 +118,14 @@ public class Group : MonoBehaviour {
     /// <returns></returns>
     public bool CanMoveOneBlock(Direction direction)
     {
-        List<Transform> childs = new List<Transform>();
+        List<Playstone> childs = GetChildPlaystones() ;
 
-        for(int i = 0; i < transform.childCount; i++)
-        {
-            childs.Add(transform.GetChild(i));
-        }
-
-        foreach(Transform child in childs)
+        foreach (Playstone child in childs)
         {
             Vector3 newPosition = GetNewPosition(direction, child);
 
-            if((int)Math.Round(newPosition.x) == (int)Math.Round(child.position.x) &&
-                (int)Math.Round(newPosition.y) == (int)Math.Round(child.position.y) &&
-                (int)Math.Round(newPosition.z) == (int)Math.Round(child.position.z))
+            if((int)Math.Round(newPosition.x) == child.Position.x &&
+                (int)Math.Round(newPosition.y) == child.Position.y)
             {
                 return false;
             }
@@ -108,20 +134,34 @@ public class Group : MonoBehaviour {
         return true;
     }
 
-    private Vector3 GetNewPosition(Direction direction, Transform gameBlock)
+    private List<Playstone> GetChildPlaystones()
     {
-        Vector3 expectedPosition = gameBlock.position;
+        List<Playstone> childs = new List<Playstone>();
+
+#pragma warning disable CS0612 // Type or member is obsolete
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            childs.Add(transform.GetChild(i).GetComponent<Playstone>());
+        }
+#pragma warning restore CS0612 // Type or member is obsolete
+
+        return childs;
+    }
+
+    private Vector2 GetNewPosition(Direction direction, Playstone gameBlock)
+    {
+        Vector2 expectedPosition = new Vector2(gameBlock.Position.x, gameBlock.Position.y);
         if (direction == Direction.DOWN)
         {
-            expectedPosition += new Vector3(0, -1, 0);
+            expectedPosition += new Vector2(0, -1);
         }
         else if (direction == Direction.LEFT)
         {
-            expectedPosition += new Vector3(-1, 0, 0);
+            expectedPosition += new Vector2(-1, 0);
         }
         else
         {
-            expectedPosition += new Vector3(1, 0, 0);
+            expectedPosition += new Vector2(1, 0);
         }
 
         int expectedPositionY = (int)Math.Round(expectedPosition.y);
@@ -133,7 +173,7 @@ public class Group : MonoBehaviour {
         }
         else
         {
-            return gameBlock.position;
+            return new Vector2(gameBlock.Position.x, gameBlock.Position.y);
         }
     }
 
