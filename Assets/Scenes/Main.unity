@@ -165,7 +165,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.093
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1401,6 +1401,9 @@ MonoBehaviour:
   - {fileID: 114257870887875366, guid: 1887e5bd33ed13e43933ba91fe374779, type: 2}
   - {fileID: 114621037477044880, guid: 2f66ac85068a7b448b329867af185930, type: 2}
   controller: {fileID: 205101409}
+  rotateSFX: {fileID: 8300000, guid: 4844f435aec434c4492f6db237632870, type: 3}
+  downSFX: {fileID: 8300000, guid: 0ea51772565824b42bf50a771173fd88, type: 3}
+  failSFX: {fileID: 8300000, guid: 6c5913719ff40164e9d765b6c195056f, type: 3}
 --- !u!4 &2115463593
 Transform:
   m_ObjectHideFlags: 0

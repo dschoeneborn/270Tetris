@@ -6,8 +6,12 @@ public class Spawner : MonoBehaviour {
     public Group[] groups;
     public Grid controller;
 
-	// Use this for initialization
-	void Start () {
+    public AudioClip rotateSFX;
+    public AudioClip downSFX;
+    public AudioClip failSFX;
+
+    // Use this for initialization
+    void Start () {
         spawnNext();
 	}
 	
@@ -23,5 +27,8 @@ public class Spawner : MonoBehaviour {
         Group created = Instantiate(groups[i], transform.position, Quaternion.identity);
 
         created.GameController = controller;
+        created.failSFX = failSFX;
+        created.downSFX = downSFX;
+        created.rotateSFX = rotateSFX;
     }
 }

@@ -106,7 +106,7 @@ public class Grid : MonoBehaviour
                 lastFramespawnedItem = false;
             }
 
-            movingGroup.MoveOneBlock(Direction.DOWN);
+            movingGroup.MoveOneBlock(Direction.DOWN, false);
 
             lastUpdatedDown = actualFrame;
         }

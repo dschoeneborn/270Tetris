@@ -13,8 +13,9 @@ public class Group : MonoBehaviour {
 
     AudioSource audioSource;
 
-    public AudioClip rotateSFX;
-    public AudioClip downSFX;
+    public AudioClip rotateSFX { get; set; }
+    public AudioClip downSFX { get; set; }
+    public AudioClip failSFX { get; set; }
 
     // Use this for initialization
     void Start()
@@ -41,8 +42,8 @@ public class Group : MonoBehaviour {
             }
         }
     }
-
-    public void MoveOneBlock(Direction direction)
+   
+    public void MoveOneBlock(Direction direction, bool playsound=true)
     {
         if (CanMoveOneBlock(direction))
         {
@@ -52,7 +53,11 @@ public class Group : MonoBehaviour {
             {
                 pos.y -= 1;
                 //Brauche hier ne unterscheidung zwischen Benutzer down und System Down
-                //audioSource.PlayOneShot(downSFX);
+
+                if(playsound)
+                {
+                    audioSource.PlayOneShot(downSFX);
+                }
             }
             else if(direction == Direction.LEFT)
             {
