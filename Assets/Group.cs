@@ -1,12 +1,12 @@
 ﻿using Assets;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Group : MonoBehaviour
 {
     public Grid GameController;
+    public Playstone RotationRoot;
 
     private bool registered;
 
@@ -15,6 +15,8 @@ public class Group : MonoBehaviour
     public AudioClip rotateSFX { get; set; }
     public AudioClip downSFX { get; set; }
     public AudioClip failSFX { get; set; }
+
+    public int Rotation { get; private set; }
 
     private int X { get; set; }
     private int Y { get; set; }
@@ -49,7 +51,6 @@ public class Group : MonoBehaviour
 
         if (GameController == null)
         {
-            Debug.Log("GAME OVER");
             Destroy(gameObject);
         }
 
@@ -60,7 +61,7 @@ public class Group : MonoBehaviour
     void Update ()
     {
 #pragma warning disable 612
-        transform.position = new Vector3(Position.x, Position.y, 10);
+        transform.position = new Vector3(0, 0, 0);
 #pragma warning restore 612
         if (!registered)
         {
@@ -101,12 +102,7 @@ public class Group : MonoBehaviour
 
     public void Rotate()
     {
-        List<Playstone> childs = GetChildPlaystones();
-
-        foreach(Playstone child in childs)
-        {
-            child.transform.RotateAround(transform.position, new Vector3(0, 0, 1), 90);
-        }
+        Rotation += 90;
         
         audioSource.PlayOneShot(rotateSFX);
         

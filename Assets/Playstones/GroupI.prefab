@@ -502,6 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameController: {fileID: 0}
+  RotationRoot: {fileID: 114556483029500346}
 --- !u!114 &114953811370443852
 MonoBehaviour:
   m_ObjectHideFlags: 1

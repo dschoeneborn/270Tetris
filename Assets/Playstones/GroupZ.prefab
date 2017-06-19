@@ -388,7 +388,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.97
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -502,6 +502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameController: {fileID: 0}
+  RotationRoot: {fileID: 114175676133947446}
 --- !u!114 &114880344115200542
 MonoBehaviour:
   m_ObjectHideFlags: 1
