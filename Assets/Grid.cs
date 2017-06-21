@@ -14,6 +14,7 @@ public class Grid : MonoBehaviour
     public int h = 20;
 
     public Text PointsCounter;
+    public RawImage GameOverScreen;
 
     private GameObject[][] grid;
 
@@ -26,9 +27,14 @@ public class Grid : MonoBehaviour
     private bool lastFramespawnedItem = false;
     private int points = 0;
 
+    private float lastX;
+    private float lastY;
+    
+
     // Use this for initialization
     void Start ()
     {
+        GameOverScreen.enabled = false;
         grid = new GameObject[h][];
 
 		for(int y = 0; y < h; y++)
@@ -42,21 +48,34 @@ public class Grid : MonoBehaviour
     {
         actualFrame++;
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetAxis("DpadX") == -1 && lastX != -1))
         {
+            lastX = -1;
             movingGroup.MoveOneBlock(Direction.LEFT);
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetAxis("DpadX") == 1 && lastX != 1))
         {
+            lastX = 1;
             movingGroup.MoveOneBlock(Direction.RIGHT);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetAxis("DpadY") == -1 && lastY != -1))
         {
+            lastY = -1;
             movingGroup.MoveOneBlock(Direction.DOWN);
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown("joystick button 0"))
         {
             movingGroup.Rotate();
+        }
+
+        if (Input.GetAxis("DpadX") == 0)
+        {
+            lastX = 0;
+        }
+
+        if (Input.GetAxis("DpadY") == 0)
+        {
+            lastY = 0;
         }
 
         if (lastUpdatedKeys + FRAMES_BETWEEN_KEY_UPDATE < actualFrame)
@@ -66,19 +85,19 @@ public class Grid : MonoBehaviour
                 PointsCounter.text = "Points: " + points;
             }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 movingGroup.MoveOneBlock(Direction.LEFT);
             }
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 movingGroup.MoveOneBlock(Direction.RIGHT);
             }
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 movingGroup.MoveOneBlock(Direction.DOWN);
             }
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 movingGroup.Rotate();
             }
@@ -95,6 +114,8 @@ public class Grid : MonoBehaviour
 
                 if (lastFramespawnedItem)
                 {
+                    PointsCounter.enabled = false;
+                    GameOverScreen.enabled = true;
                     Destroy(this);
                 }
 
