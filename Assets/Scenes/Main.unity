@@ -149,9 +149,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.7128477, y: 1.8089037, z: 0.446805}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2115463593}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &205101411
 AudioSource:
@@ -484,7 +485,7 @@ RectTransform:
   m_Children:
   - {fileID: 1785596536}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -724,7 +725,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
       propertyPath: m_UseHeadBob
@@ -1001,13 +1002,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groups:
-  - {fileID: 114922247537557464, guid: 40ab0c87ae7b6614e844586de123e303, type: 2}
-  - {fileID: 114327693721941962, guid: 8ccf94d2030befc45b70e26837584612, type: 2}
-  - {fileID: 114862851298114358, guid: 60fbff0e7701ea24eb78a6e051864fe3, type: 2}
-  - {fileID: 114235317280874820, guid: 17cce3f02da0c2a4e9814c93df564a8c, type: 2}
-  - {fileID: 114622840751436076, guid: 357a17a122f5fb94aa0ccb138419b9cb, type: 2}
-  - {fileID: 114257870887875366, guid: 1887e5bd33ed13e43933ba91fe374779, type: 2}
-  - {fileID: 114621037477044880, guid: 2f66ac85068a7b448b329867af185930, type: 2}
+  - {fileID: 114089332674495934, guid: 223ae2b6fcb1e1c46a0a6d9196eee8da, type: 2}
+  - {fileID: 114013904164423216, guid: 35ded9f2f87b02e4691f37e75cba5657, type: 2}
+  - {fileID: 114458231286905088, guid: 60fbff0e7701ea24eb78a6e051864fe3, type: 2}
+  - {fileID: 114879664284749978, guid: 17cce3f02da0c2a4e9814c93df564a8c, type: 2}
+  - {fileID: 114529099864205890, guid: 357a17a122f5fb94aa0ccb138419b9cb, type: 2}
+  - {fileID: 114045804032431180, guid: 503395c4bd792dc40a9305c806a0cba0, type: 2}
+  - {fileID: 114751554518852730, guid: 2f66ac85068a7b448b329867af185930, type: 2}
   controller: {fileID: 205101409}
   rotateSFX: {fileID: 8300000, guid: 4844f435aec434c4492f6db237632870, type: 3}
   downSFX: {fileID: 8300000, guid: 0ea51772565824b42bf50a771173fd88, type: 3}
@@ -1018,10 +1019,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2115463591}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 20, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.712848, y: 18.191097, z: -0.446805}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 205101410}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

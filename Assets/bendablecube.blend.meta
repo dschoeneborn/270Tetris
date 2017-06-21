@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c8fe553b4a7ea9842983e29e54ac667e
-timeCreated: 1497864712
+guid: 8d6bcbfbf22cea649b2b10829efa9fba
+timeCreated: 1498034670
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -8,23 +8,20 @@ ModelImporter:
     100000: //RootNode
     100002: Cube
     100004: Left
-    100006: Left_end
-    100008: metarig
-    100010: Right
-    100012: Right_end
-    100014: WGT-root
+    100006: metarig
+    100008: Right
+    100010: WGT-root
     400000: //RootNode
     400002: Cube
     400004: Left
-    400006: Left_end
-    400008: metarig
-    400010: Right
-    400012: Right_end
-    400014: WGT-root
+    400006: metarig
+    400008: Right
+    400010: WGT-root
     2300000: WGT-root
     3300000: WGT-root
     4300000: WGT-root
     4300002: Cube
+    7400000: Default Take
     9500000: //RootNode
     13700000: Cube
   materials:
@@ -85,7 +82,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: metarig
+    rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
