@@ -14,6 +14,7 @@ public class Grid : MonoBehaviour
     public int h = 20;
 
     public Text PointsCounter;
+    public RawImage GameOverScreen;
 
     private GameObject[][] grid;
 
@@ -29,6 +30,7 @@ public class Grid : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        GameOverScreen.enabled = false;
         grid = new GameObject[h][];
 
 		for(int y = 0; y < h; y++)
@@ -95,6 +97,8 @@ public class Grid : MonoBehaviour
 
                 if (lastFramespawnedItem)
                 {
+                    PointsCounter.enabled = false;
+                    GameOverScreen.enabled = true;
                     Destroy(this);
                 }
 
