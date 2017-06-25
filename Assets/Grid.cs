@@ -246,12 +246,12 @@ public class Grid : MonoBehaviour
 
     private void DecreaseAllRowsAbove(int above)
     {
-        for (int x = 0; x < h - 1; x++)
+        for (int x = above; x < h - 1; x++)
         {
             grid[x] = grid[x + 1];
             grid[x + 1] = new Playstone[w];
 
-            for (int y = above; y < w ; y++)
+            for (int y = 0; y < w ; y++)
             {
                 if(grid[x][y] != null)
                 {
