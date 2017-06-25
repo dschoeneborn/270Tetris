@@ -102,10 +102,16 @@ public class Group : MonoBehaviour
 
     public void Rotate()
     {
-        Rotation += 90;
-        
-        audioSource.PlayOneShot(rotateSFX);
-        
+        if(CanRotateOneTime())
+        {
+            Rotation += 90;
+
+            audioSource.PlayOneShot(rotateSFX);
+        }
+        else
+        {
+            audioSource.PlayOneShot(failSFX);
+        }
     }
 
     /// <summary>
@@ -128,6 +134,25 @@ public class Group : MonoBehaviour
             }
         }
 
+        return true;
+    }
+
+    private bool CanRotateOneTime()
+    {
+        Rotation += 90;
+
+        List<Playstone> childs = GetChildPlaystones();
+
+        foreach (Playstone child in childs)
+        {
+            if (!GameController.IsInsideBorder(new Vector2(child.Position.x, child.Position.y)))
+            {
+                Rotation -= 90;
+                return false;
+            }
+        }
+
+        Rotation -= 90;
         return true;
     }
 

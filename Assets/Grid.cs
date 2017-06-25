@@ -16,7 +16,9 @@ public class Grid : MonoBehaviour
     public Text PointsCounter;
     public RawImage GameOverScreen;
 
-    private GameObject[][] grid;
+    public RawImage DebugItem;
+
+    private Playstone[][] grid;
 
     private Group movingGroup;
 
@@ -35,75 +37,63 @@ public class Grid : MonoBehaviour
     void Start ()
     {
         GameOverScreen.enabled = false;
-        grid = new GameObject[h][];
+        grid = new Playstone[h][];
 
 		for(int y = 0; y < h; y++)
         {
-            grid[y] = new GameObject[w];
+            grid[y] = new Playstone[w];
         }
 	}
+
+    public GameObject FindDebugUI()
+    {
+        foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))
+        {
+            if (obj.tag.Equals("DebugUI"))
+            {
+                return obj;
+            }
+        }
+
+        return null;
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        foreach(GameObject obj in FindObjectsOfType(typeof(GameObject)))
+        {
+            if (obj.tag.Equals("DebugInformationImage"))
+            {
+                Destroy(obj);
+            }
+        }
+
+        foreach (RawImage obj in FindObjectsOfType(typeof(RawImage)))
+        {
+            if(obj.tag.Equals("DebugImage"))
+            {
+                for(int x = 0; x < h; x++)
+                {
+                    for(int y = 0; y < w; y++)
+                    {
+                        if(grid[x][y] != null)
+                        {
+                            float positionY = obj.rectTransform.rect.width * x;
+                            float positionX = obj.rectTransform.rect.height * y;
+
+                            RawImage instantiated = Instantiate(obj, FindDebugUI().transform);
+                            instantiated.tag = "DebugInformationImage";
+                            instantiated.transform.position = new Vector2(positionX, positionY);
+                        }
+                    }
+                }
+            }
+        }
+
         actualFrame++;
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetAxis("DpadX") == -1 && lastX != -1))
-        {
-            lastX = -1;
-            movingGroup.MoveOneBlock(Direction.LEFT);
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetAxis("DpadX") == 1 && lastX != 1))
-        {
-            lastX = 1;
-            movingGroup.MoveOneBlock(Direction.RIGHT);
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetAxis("DpadY") == -1 && lastY != -1))
-        {
-            lastY = -1;
-            movingGroup.MoveOneBlock(Direction.DOWN);
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown("joystick button 0"))
-        {
-            movingGroup.Rotate();
-        }
-
-        if (Input.GetAxis("DpadX") == 0)
-        {
-            lastX = 0;
-        }
-
-        if (Input.GetAxis("DpadY") == 0)
-        {
-            lastY = 0;
-        }
-
-        if (lastUpdatedKeys + FRAMES_BETWEEN_KEY_UPDATE < actualFrame)
-        {
-            if (PointsCounter != null)
-            {
-                PointsCounter.text = "Points: " + points;
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                movingGroup.MoveOneBlock(Direction.LEFT);
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                movingGroup.MoveOneBlock(Direction.RIGHT);
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                movingGroup.MoveOneBlock(Direction.DOWN);
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                movingGroup.Rotate();
-            }
-
-            lastUpdatedKeys = actualFrame;
-        }
+        MoveIfButtonPressed();
 
         if (lastUpdatedDown + FRAMES_BETWEEN_MOVING_UPDATE < actualFrame)
         {
@@ -127,7 +117,10 @@ public class Grid : MonoBehaviour
                 lastFramespawnedItem = false;
             }
 
-            movingGroup.MoveOneBlock(Direction.DOWN, false);
+            if (movingGroup != null)
+            {
+                movingGroup.MoveOneBlock(Direction.DOWN, false);
+            }
 
             lastUpdatedDown = actualFrame;
         }
@@ -144,27 +137,60 @@ public class Grid : MonoBehaviour
         return false;
     }
 
+    private void MoveIfButtonPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || (IsAxisAvailable("DpadX") && Input.GetAxis("DpadX") == -1 && lastX != -1))
+        {
+            lastX = -1;
+            movingGroup.MoveOneBlock(Direction.LEFT);
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) || (IsAxisAvailable("DpadX") && Input.GetAxis("DpadX") == 1 && lastX != 1))
+        {
+            lastX = 1;
+            movingGroup.MoveOneBlock(Direction.RIGHT);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow) || (IsAxisAvailable("DpadY") && Input.GetAxis("DpadY") == -1 && lastY != -1))
+        {
+            lastY = -1;
+            movingGroup.MoveOneBlock(Direction.DOWN);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) || (Input.GetKeyDown("joystick button 0")))
+        {
+            movingGroup.Rotate();
+        }
+
+        if (IsAxisAvailable("DpadX") && Input.GetAxis("DpadX") == 0)
+        {
+            lastX = 0;
+        }
+
+        if (IsAxisAvailable("DpadY") && Input.GetAxis("DpadY") == 0)
+        {
+            lastY = 0;
+        }
+    }
+
     private bool IsMovingObjectOnBottom()
     {
-        return (!movingGroup.CanMoveOneBlock(Direction.DOWN));
+        return (movingGroup != null && !movingGroup.CanMoveOneBlock(Direction.DOWN));
     }
 
     private void ResolveMovingObject()
     {
         List<Playstone> childs = new List<Playstone>();
 
-#pragma warning disable CS0612 // Type or member is obsolete
+#pragma warning disable CS0612
         for (int i = 0; i < movingGroup.transform.childCount; i++)
         {
             childs.Add(movingGroup.transform.GetChild(i).GetComponent<Playstone>());
         }
-#pragma warning restore CS0612 // Type or member is obsolete
+#pragma warning restore CS0612
 
         foreach (Playstone child in childs)
         {
             int rowNumber = (int)Math.Round(child.Position.y);
             int columnNumber = (int)Math.Round(child.Position.x);
-            grid[rowNumber][columnNumber] = child.gameObject;
+            grid[rowNumber][columnNumber] = child;
         }
         movingGroup = null;
     }
@@ -192,27 +218,6 @@ public class Grid : MonoBehaviour
         }
     }
 
-    private void DecreaseRow(int y)
-    {
-        for(int x = 0; x<w; ++x)
-        {
-            if(grid[y][x] != null)
-            {
-                grid[y][x].transform.position += new Vector3(0, -1, 0);
-                grid[y - 1][x] = grid[y][x];
-                grid[y][x] = null;
-            }
-        }
-    }
-
-    public void DecreseRowsAbove(int y)
-    {
-        for(int i = y; i<grid.Length; i++)
-        {
-            DecreaseRow(i);
-        }
-    }
-
     public bool IsRowFull(int y)
     {
         for(int x=0; x<w; x++)
@@ -227,15 +232,45 @@ public class Grid : MonoBehaviour
 
     public void DeleteFullRows()
     {
-        for(int y=0; y<h; ++y)
+        for(int y=0; y<h; y++)
         {
             if(IsRowFull(y))
             {
                 points += 100;
                 DeleteRow(y);
-                DecreseRowsAbove(y + 1);
-                --y;
+                DecreaseAllRowsAbove(y);
+                y--;
             }
+        }
+    }
+
+    private void DecreaseAllRowsAbove(int above)
+    {
+        for (int x = 0; x < h - 1; x++)
+        {
+            grid[x] = grid[x + 1];
+            grid[x + 1] = new Playstone[w];
+
+            for (int y = above; y < w ; y++)
+            {
+                if(grid[x][y] != null)
+                {
+                    grid[x][y].LocalY -= 1;
+                }
+            }
+        }
+    }
+
+    bool IsAxisAvailable(string axisName)
+    {
+        try
+        {
+            Input.GetAxis(axisName);
+            return true;
+        }
+        catch (ArgumentException)
+        {
+            return false;
         }
     }
 }
