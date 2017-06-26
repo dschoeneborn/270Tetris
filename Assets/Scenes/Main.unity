@@ -209,6 +209,7 @@ MonoBehaviour:
   PointsCounter: {fileID: 1785596537}
   GameOverScreen: {fileID: 2117102485}
   DebugItem: {fileID: 155270666}
+  ShowDebugInformation: 1
 --- !u!4 &205101410
 Transform:
   m_ObjectHideFlags: 0

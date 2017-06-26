@@ -15,11 +15,10 @@ public class Grid : MonoBehaviour
 
     public Text PointsCounter;
     public RawImage GameOverScreen;
-
     public RawImage DebugItem;
+    public bool ShowDebugInformation;
 
     private Playstone[][] grid;
-
     private Group movingGroup;
 
     private long lastUpdatedDown;
@@ -44,51 +43,14 @@ public class Grid : MonoBehaviour
             grid[y] = new Playstone[w];
         }
 	}
-
-    public GameObject FindDebugUI()
-    {
-        foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))
-        {
-            if (obj.tag.Equals("DebugUI"))
-            {
-                return obj;
-            }
-        }
-
-        return null;
-    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        foreach(GameObject obj in FindObjectsOfType(typeof(GameObject)))
+        if(ShowDebugInformation)
         {
-            if (obj.tag.Equals("DebugInformationImage"))
-            {
-                Destroy(obj);
-            }
-        }
-
-        foreach (RawImage obj in FindObjectsOfType(typeof(RawImage)))
-        {
-            if(obj.tag.Equals("DebugImage"))
-            {
-                for(int x = 0; x < h; x++)
-                {
-                    for(int y = 0; y < w; y++)
-                    {
-                        if(grid[x][y] != null)
-                        {
-                            float positionY = obj.rectTransform.rect.width * x;
-                            float positionX = obj.rectTransform.rect.height * y;
-
-                            RawImage instantiated = Instantiate(obj, FindDebugUI().transform);
-                            instantiated.tag = "DebugInformationImage";
-                            instantiated.transform.position = new Vector2(positionX, positionY);
-                        }
-                    }
-                }
-            }
+            RemoveOldDebugInformation();
+            DrawNewDebugInformation();
         }
 
         actualFrame++;
@@ -123,6 +85,42 @@ public class Grid : MonoBehaviour
             }
 
             lastUpdatedDown = actualFrame;
+        }
+    }
+
+    private void DrawNewDebugInformation()
+    {
+        foreach (RawImage obj in FindObjectsOfType(typeof(RawImage)))
+        {
+            if (obj.tag.Equals("DebugImage"))
+            {
+                for (int x = 0; x < h; x++)
+                {
+                    for (int y = 0; y < w; y++)
+                    {
+                        if (grid[x][y] != null)
+                        {
+                            float positionY = obj.rectTransform.rect.width * x;
+                            float positionX = obj.rectTransform.rect.height * y;
+
+                            RawImage instantiated = Instantiate(obj, FindDebugUI().transform);
+                            instantiated.tag = "DebugInformationImage";
+                            instantiated.transform.position = new Vector2(positionX, positionY);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void RemoveOldDebugInformation()
+    {
+        foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))
+        {
+            if (obj.tag.Equals("DebugInformationImage"))
+            {
+                Destroy(obj);
+            }
         }
     }
 
@@ -168,6 +166,19 @@ public class Grid : MonoBehaviour
         {
             lastY = 0;
         }
+    }
+
+    private GameObject FindDebugUI()
+    {
+        foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))
+        {
+            if (obj.tag.Equals("DebugUI"))
+            {
+                return obj;
+            }
+        }
+
+        return null;
     }
 
     private bool IsMovingObjectOnBottom()
@@ -261,7 +272,7 @@ public class Grid : MonoBehaviour
         }
     }
 
-    bool IsAxisAvailable(string axisName)
+    private bool IsAxisAvailable(string axisName)
     {
         try
         {
