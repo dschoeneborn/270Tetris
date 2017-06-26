@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class Grid : MonoBehaviour
 {
-    private const int FRAMES_BETWEEN_KEY_UPDATE = 10;
-    private const int FRAMES_BETWEEN_MOVING_UPDATE = 40;
+    private const int TIME_BETWEEN_MOVING_UPDATE = 1; //In seconds
 
     public int w = 10;
     public int h = 20;
@@ -21,9 +20,7 @@ public class Grid : MonoBehaviour
     private Playstone[][] grid;
     private Group movingGroup;
 
-    private long lastUpdatedDown;
-    private long lastUpdatedKeys;
-    private long actualFrame;
+    private float lastUpdatedDown;
 
     private bool lastFramespawnedItem = false;
     private int points = 0;
@@ -47,18 +44,16 @@ public class Grid : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(ShowDebugInformation)
-        {
-            RemoveOldDebugInformation();
-            DrawNewDebugInformation();
-        }
-
-        actualFrame++;
-
         MoveIfButtonPressed();
 
-        if (lastUpdatedDown + FRAMES_BETWEEN_MOVING_UPDATE < actualFrame)
+        if (lastUpdatedDown + TIME_BETWEEN_MOVING_UPDATE < Time.time)
         {
+            if (ShowDebugInformation)
+            {
+                RemoveOldDebugInformation();
+                DrawNewDebugInformation();
+            }
+
             if (IsMovingObjectOnBottom())
             {
                 ResolveMovingObject();
@@ -84,7 +79,7 @@ public class Grid : MonoBehaviour
                 movingGroup.MoveOneBlock(Direction.DOWN, false);
             }
 
-            lastUpdatedDown = actualFrame;
+            lastUpdatedDown = Time.time;
         }
     }
 
@@ -266,7 +261,7 @@ public class Grid : MonoBehaviour
             {
                 if(grid[x][y] != null)
                 {
-                    grid[x][y].LocalY -= 1;
+                    grid[x][y].DecreasedTimes += 1;
                 }
             }
         }

@@ -5,8 +5,10 @@ public class Playstone : MonoBehaviour
 {
     private Quaternion InitialRotation;
 
-    public int LocalX { get; set; }
-    public int LocalY { get; set; }
+    private int LocalX { get; set; }
+    private int LocalY { get; set; }
+
+    public int DecreasedTimes { get; set; }
 
     public Vector2 Position
     {
@@ -43,7 +45,7 @@ public class Playstone : MonoBehaviour
     {
         Group g = this.GetComponentInParent<Group>();
 
-        transform.localPosition = new Vector3(0, Position.y, 0);
+        transform.localPosition = new Vector3(0, Position.y - DecreasedTimes, 0);
 
         transform.rotation = InitialRotation;
         transform.RotateAround(new Vector3(10, 0, 0), new Vector3(0, 1, 0), Position.x / g.GameController.w * 270);
