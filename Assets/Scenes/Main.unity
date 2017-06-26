@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba845c72cc6dd2c428e85ba15673d74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  w: 13
+  w: 25
   h: 25
   PointsCounter: {fileID: 1785596537}
   GameOverScreen: {fileID: 2117102485}
@@ -466,7 +466,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1654064404}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &517845687
 GameObject:
@@ -676,90 +676,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1056320771
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1056320772}
-  - component: {fileID: 1056320775}
-  - component: {fileID: 1056320774}
-  - component: {fileID: 1056320773}
-  m_Layer: 0
-  m_Name: U
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1056320772
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1056320771}
-  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
-  m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1654064404}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
---- !u!23 &1056320773
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1056320771}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!64 &1056320774
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1056320771}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &1056320775
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1056320771}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1332915543
 Prefab:
   m_ObjectHideFlags: 0
@@ -844,7 +760,6 @@ Transform:
   m_LocalScale: {x: 2.5, y: 2, z: 2}
   m_Children:
   - {fileID: 743650093}
-  - {fileID: 1056320772}
   - {fileID: 436644307}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1079,6 +994,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groups:
   - {fileID: 114089332674495934, guid: 223ae2b6fcb1e1c46a0a6d9196eee8da, type: 2}
+  - {fileID: 114013904164423216, guid: 35ded9f2f87b02e4691f37e75cba5657, type: 2}
+  - {fileID: 114458231286905088, guid: 60fbff0e7701ea24eb78a6e051864fe3, type: 2}
+  - {fileID: 114879664284749978, guid: 17cce3f02da0c2a4e9814c93df564a8c, type: 2}
+  - {fileID: 114529099864205890, guid: 357a17a122f5fb94aa0ccb138419b9cb, type: 2}
+  - {fileID: 114045804032431180, guid: 503395c4bd792dc40a9305c806a0cba0, type: 2}
+  - {fileID: 114751554518852730, guid: 2f66ac85068a7b448b329867af185930, type: 2}
   controller: {fileID: 205101409}
   rotateSFX: {fileID: 8300000, guid: 4844f435aec434c4492f6db237632870, type: 3}
   downSFX: {fileID: 8300000, guid: 0ea51772565824b42bf50a771173fd88, type: 3}
