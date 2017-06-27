@@ -73,6 +73,11 @@ public class Group : MonoBehaviour
         }
     }
    
+    /// <summary>
+    /// Bewegt ein Block, standardmäßig mit Sound, innerhalb des Grids in eine Richtung.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="playsound"></param>
     public void MoveOneBlock(Direction direction, bool playsound=true)
     {
         if (CanMoveOneBlock(direction))
@@ -101,6 +106,9 @@ public class Group : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Rotiert ein Block um 90 Grad
+    /// </summary>
     public void Rotate()
     {
         if(CanRotateOneTime())
@@ -115,9 +123,11 @@ public class Group : MonoBehaviour
         }
     }
 
+    
     /// <summary>
-    /// Move Element one block
+    /// Prüft ob ein Block sich in eine Richtung bewegen kann
     /// </summary>
+    /// <param name="direction"></param>
     /// <returns></returns>
     public bool CanMoveOneBlock(Direction direction)
     {
@@ -138,6 +148,11 @@ public class Group : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Prüft ob sich der Block um 90 Grad drehen kann.
+    /// Ist dies nicht der Fall wird ein Fail Sound ausgegeben.
+    /// </summary>
+    /// <returns></returns>
     private bool CanRotateOneTime()
     {
         Rotation += 90;
@@ -158,6 +173,10 @@ public class Group : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Gibt die Einzel-Blöcke, aus denen eine Gruppe besteht, als Liste zurück.
+    /// </summary>
+    /// <returns></returns>
     private List<Playstone> GetChildPlaystones()
     {
         List<Playstone> childs = new List<Playstone>();
@@ -172,6 +191,12 @@ public class Group : MonoBehaviour
         return childs;
     }
 
+    /// <summary>
+    /// Gibt die neue Position eines Blockes im Grid zurück.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="gameBlock"></param>
+    /// <returns></returns>
     private Vector2 GetNewPosition(Direction direction, Playstone gameBlock)
     {
         Vector2 expectedPosition = new Vector2(gameBlock.Position.x, gameBlock.Position.y);
@@ -201,6 +226,9 @@ public class Group : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Setzt den GameController, falls dieser noch nicht gesetzt wurde
+    /// </summary>
     private void FindGamecontrollerIfNull()
     {
         if (GameController == null)

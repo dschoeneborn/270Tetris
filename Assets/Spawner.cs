@@ -21,6 +21,9 @@ public class Spawner : MonoBehaviour {
 		
 	}
 
+    /// <summary>
+    /// Lässt einen zufälligen Block auf dem Grid erscheinen
+    /// </summary>
     public void spawnNext()
     {
         int i = Random.Range(0, groups.Length);
