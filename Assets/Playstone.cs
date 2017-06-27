@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Repräsentiert ein einzelnen Block eines Tetris Spielsteins.
+/// </summary>
 public class Playstone : MonoBehaviour
 {
     private Quaternion InitialRotation;
@@ -10,6 +13,9 @@ public class Playstone : MonoBehaviour
 
     public int DecreasedTimes { get; set; }
 
+    /// <summary>
+    /// Gibt die X und Y Positionen so getauscht zurück, dass diese den Block rotieren lassen würde
+    /// </summary>
     public Vector2 Position
     {
         get
@@ -30,7 +36,10 @@ public class Playstone : MonoBehaviour
             return new Vector2(g.Position.x + posX, g.Position.y + posY);
         }
     }
-    
+
+    /// <summary>
+    /// Bestimmt die jeweilige Postion abhängig vom Rotationsmittelpunkt
+    /// </summary>
     void Start()
     {
         Group g = this.GetComponentInParent<Group>();
@@ -40,7 +49,10 @@ public class Playstone : MonoBehaviour
         LocalX = (int)Math.Round(transform.position.x - g.RotationRoot.transform.position.x);
         LocalY = (int)Math.Round(transform.position.y - g.RotationRoot.transform.position.y);
     }
-    
+
+    /// <summary>
+    /// Führt die Rotation des Blocks aus
+    /// </summary>
     void Update()
     {
         Group g = this.GetComponentInParent<Group>();
