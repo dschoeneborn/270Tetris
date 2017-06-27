@@ -5,11 +5,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Bildet das Spielfeld ab</summary>
+/// <remarks>
+/// Beinhaltet alle Spielsteine im Spiel und übernimmt die Tätigkeit als Controller
+/// </remarks>
 public class Grid : MonoBehaviour
 {
     private const int TIME_BETWEEN_MOVING_UPDATE = 1; //In seconds
 
+    /// <summary>
+    /// Breite des Spieldfelde
+    /// </summary>
     public int w = 10;
+    /// <summary>
+    /// Höhe des Spielfeldes
+    /// </summary>
     public int h = 20;
 
     public Text PointsCounter;
@@ -17,6 +29,9 @@ public class Grid : MonoBehaviour
     public RawImage DebugItem;
     public bool ShowDebugInformation;
 
+    /// <summary>
+    /// Array zum Speichern der im Spiel befindlichen Spielsteine
+    /// </summary>
     private Playstone[][] grid;
     private Group movingGroup;
 
@@ -25,7 +40,13 @@ public class Grid : MonoBehaviour
     private bool lastFramespawnedItem = false;
     private int points = 0;
 
+    /// <summary>
+    /// Hilfsvariable für Gamepadeingabe
+    /// </summary>
     private float lastX;
+    /// <summary>
+    /// Hilfsvariable für Gamepadeingabe
+    /// </summary>
     private float lastY;
     
 
@@ -33,6 +54,7 @@ public class Grid : MonoBehaviour
     void Start ()
     {
         GameOverScreen.enabled = false;
+        // Initialisierung des Spielfeldes
         grid = new Playstone[h][];
 
 		for(int y = 0; y < h; y++)
@@ -46,6 +68,8 @@ public class Grid : MonoBehaviour
     {
         MoveIfButtonPressed();
 
+
+        //Prüfung, ob bereits ein neues Kommando entgegengenommen werden kann, oder noch weiter gewartet werden muss. Dadurch wird ein doppeltes Interpretieren von Kommandos vermieden
         if (lastUpdatedDown + TIME_BETWEEN_MOVING_UPDATE < Time.time)
         {
             if (ShowDebugInformation)
@@ -54,6 +78,7 @@ public class Grid : MonoBehaviour
                 DrawNewDebugInformation();
             }
 
+            //Prüft, ob der Spielstein am Boden des Spielfelds angekommen ist
             if (IsMovingObjectOnBottom())
             {
                 ResolveMovingObject();
@@ -83,6 +108,10 @@ public class Grid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Debuginformation als Hilfestellung bei der Analyse des Spiel.
+    /// Blendet das Spielfeld als 2D-Version in der unteren linken Ecke ein
+    /// </summary>
     private void DrawNewDebugInformation()
     {
         foreach (RawImage obj in FindObjectsOfType(typeof(RawImage)))
@@ -108,6 +137,9 @@ public class Grid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Löscht die aktuelle Debug information
+    /// </summary>
     private void RemoveOldDebugInformation()
     {
         foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))
@@ -130,6 +162,10 @@ public class Grid : MonoBehaviour
         return false;
     }
 
+
+    /// <summary>
+    /// Verarbeitet die Tastatur eingaben
+    /// </summary>
     private void MoveIfButtonPressed()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) || (IsAxisAvailable("DpadX") && Input.GetAxis("DpadX") == -1 && lastX != -1))
@@ -176,6 +212,10 @@ public class Grid : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Prüft, ob sich ein Objekt am Boden des Spielfelds befindet
+    /// </summary>
+    /// <returns>true, wenn Objekt am Boden angekommen</returns>
     private bool IsMovingObjectOnBottom()
     {
         return (movingGroup != null && !movingGroup.CanMoveOneBlock(Direction.DOWN));
@@ -201,6 +241,11 @@ public class Grid : MonoBehaviour
         movingGroup = null;
     }
 
+    /// <summary>
+    /// Prüft, ob sich ein Objekt innerhalb des Spielfeldes befindet
+    /// </summary>
+    /// <param name="pos"> Position des Objekts</param>
+    /// <returns>true, wenn das Objekt innerhalb des Spielfeldes ist</returns>
     public bool IsInsideBorder(Vector2 pos)
     {
         return ((int)pos.x >= 0 &&
@@ -209,12 +254,23 @@ public class Grid : MonoBehaviour
                 (int)pos.y < h);
     }
 
+    /// <summary>
+    /// Prüft, ob die angegebene Position im Spielfeld liegt und nicht von einem anderen Stein belegt ist.
+    /// </summary>
+    /// <param name="y"> y-Koordinate</param>
+    /// <param name="x">x.Koordinate</param>
+    /// <returns></returns>
     public bool IsValidPosition(int y, int x)
     {
         return (IsInsideBorder(new Vector2(x, y)) &&
             grid[y][x] == null);
     }
 
+
+    /// <summary>
+    /// Löscht Spielsteine auf der angegebenen Zeile aus dem Spiel
+    /// </summary>
+    /// <param name="y"> Koordinate der Reihe</param>
     private void DeleteRow(int y)
     {
         for(int x = 0; x<w; x++)
@@ -224,6 +280,12 @@ public class Grid : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Prüft ob eine Reihe voll ist
+    /// </summary>
+    /// <param name="y"> Koordinate der zu prüfenden Reihe</param>
+    /// <returns>true, wenn Reihe voll ist</returns>
     public bool IsRowFull(int y)
     {
         for(int x=0; x<w; x++)
@@ -236,6 +298,10 @@ public class Grid : MonoBehaviour
         return true;
     }
 
+
+    /// <summary>
+    /// Löscht alle vollen Reihen aus dem Spiel
+    /// </summary>
     public void DeleteFullRows()
     {
         for(int y=0; y<h; y++)
@@ -250,6 +316,11 @@ public class Grid : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Setzt alle Reihen oberhalt von above um eine Reihe nach unten
+    /// </summary>
+    /// <param name="above">y-Koordinate ab der Reihen nach unten verschoben werden</param>
     private void DecreaseAllRowsAbove(int above)
     {
         for (int x = above; x < h - 1; x++)
