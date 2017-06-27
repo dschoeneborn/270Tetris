@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Repräsentiert ein Tetris Block. Ist eine Gruppe von gekrümmten Blöcken.
+/// </summary>
 public class Group : MonoBehaviour
 {
     public Grid GameController;

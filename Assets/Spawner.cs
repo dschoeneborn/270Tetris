@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Ermöglicht das Spawnen von Tetris-Blöcken
+/// </summary>
 public class Spawner : MonoBehaviour {
     public Group[] groups;
     public Grid controller;
