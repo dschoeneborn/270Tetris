@@ -371,7 +371,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 4
+    axis: 5
     joyNum: 0
   - serializedVersion: 3
     m_Name: Oculus_GearVR_DpadY
@@ -385,9 +385,9 @@ InputManager:
     dead: 0.001
     sensitivity: 1
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
-    axis: 5
+    axis: 6
     joyNum: 0
   - serializedVersion: 3
     m_Name: Oculus_GearVR_LIndexTrigger

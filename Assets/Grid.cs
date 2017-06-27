@@ -168,17 +168,17 @@ public class Grid : MonoBehaviour
     /// </summary>
     private void MoveIfButtonPressed()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || (IsAxisAvailable("DpadX") && Input.GetAxis("DpadX") == -1 && lastX != -1))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || (IsAxisAvailable("Oculus_GearVR_DpadX") && Input.GetAxis("Oculus_GearVR_DpadX") == -1 && lastX != -1))
         {
             lastX = -1;
             movingGroup.MoveOneBlock(Direction.LEFT);
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) || (IsAxisAvailable("DpadX") && Input.GetAxis("DpadX") == 1 && lastX != 1))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || (IsAxisAvailable("Oculus_GearVR_DpadX") && Input.GetAxis("Oculus_GearVR_DpadX") == 1 && lastX != 1))
         {
             lastX = 1;
             movingGroup.MoveOneBlock(Direction.RIGHT);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) || (IsAxisAvailable("DpadY") && Input.GetAxis("DpadY") == -1 && lastY != -1))
+        if (Input.GetKeyDown(KeyCode.DownArrow) || (IsAxisAvailable("Oculus_GearVR_DpadY") && Input.GetAxis("Oculus_GearVR_DpadY") == -1 && lastY != -1))
         {
             lastY = -1;
             movingGroup.MoveOneBlock(Direction.DOWN);
@@ -188,12 +188,12 @@ public class Grid : MonoBehaviour
             movingGroup.Rotate();
         }
 
-        if (IsAxisAvailable("DpadX") && Input.GetAxis("DpadX") == 0)
+        if (IsAxisAvailable("Oculus_GearVR_DpadX") && Input.GetAxis("Oculus_GearVR_DpadX") == 0)
         {
             lastX = 0;
         }
 
-        if (IsAxisAvailable("DpadY") && Input.GetAxis("DpadY") == 0)
+        if (IsAxisAvailable("Oculus_GearVR_DpadY") && Input.GetAxis("Oculus_GearVR_DpadY") == 0)
         {
             lastY = 0;
         }
