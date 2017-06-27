@@ -1004,6 +1004,7 @@ MonoBehaviour:
   rotateSFX: {fileID: 8300000, guid: 4844f435aec434c4492f6db237632870, type: 3}
   downSFX: {fileID: 8300000, guid: 0ea51772565824b42bf50a771173fd88, type: 3}
   failSFX: {fileID: 8300000, guid: 6c5913719ff40164e9d765b6c195056f, type: 3}
+  failRotateSFX: {fileID: 8300000, guid: 28019d45864d87b4bb3838ce48425fec, type: 3}
 --- !u!4 &2115463593
 Transform:
   m_ObjectHideFlags: 0

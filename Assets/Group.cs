@@ -15,6 +15,7 @@ public class Group : MonoBehaviour
     public AudioClip rotateSFX { get; set; }
     public AudioClip downSFX { get; set; }
     public AudioClip failSFX { get; set; }
+    public AudioClip failRotateSFX { get; set; }
 
     public int Rotation { get; private set; }
 
@@ -148,6 +149,7 @@ public class Group : MonoBehaviour
             if (!GameController.IsInsideBorder(new Vector2(child.Position.x, child.Position.y)))
             {
                 Rotation -= 90;
+                audioSource.PlayOneShot(failRotateSFX);
                 return false;
             }
         }

@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour {
     public AudioClip rotateSFX;
     public AudioClip downSFX;
     public AudioClip failSFX;
+    public AudioClip failRotateSFX;
 
     // Use this for initialization
     void Start () {
@@ -32,5 +33,6 @@ public class Spawner : MonoBehaviour {
         created.failSFX = failSFX;
         created.downSFX = downSFX;
         created.rotateSFX = rotateSFX;
+        created.failRotateSFX = failRotateSFX;
     }
 }
