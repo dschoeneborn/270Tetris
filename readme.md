@@ -11,7 +11,7 @@ Wir haben gehofft mit der Idee die Spieler noch länger zu fesseln, da der Spiel
 ## Steuerung ##
 Taste|Funktion
 -----|------------
-<kbd>←</kbd>|Aktuellen Stein nach links bewegen
-<kbd>→</kbd>|Aktuellen Stein nach rechts bewegen
-<kbd>↓</kbd>|Aktuellen Stein schnell nach unten bewegen
-<kbd>↑</kbd> <kbd>A</kbd>(XBOX)|Aktuellen Stein rotieren
+<kbd>←</kbd> oder ![xbox links](https://github.com/dschoeneborn/270Tetris/blob/misc/controlls/links-xbox.bmp)|Aktuellen Stein nach links bewegen
+<kbd>→</kbd> oder ![xbox rechts](https://github.com/dschoeneborn/270Tetris/blob/misc/controlls/rechts-xbox.bmp)|Aktuellen Stein nach rechts beweg
+<kbd>↓</kbd> oder ![xbox runter](https://github.com/dschoeneborn/270Tetris/blob/misc/controlls/runter-xbox.bmp)|Aktuellen Stein schnell nach unten bewegen
+<kbd>↑</kbd> oder ![xbox A](https://github.com/dschoeneborn/270Tetris/blob/misc/controlls/a.bmp) |Aktuellen Stein rotieren
