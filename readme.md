@@ -19,6 +19,6 @@ Taste|Funktion
 ## Starten ##
 Zum Starten des Spiels stehen zwei Möglichkeiten zur Verfügung
 * Es steht eine [kompilierte Version](https://github.com/dschoeneborn/270Tetris/raw/misc/Tetris.zip) bereit. Diese kann mit einem Doppelklick ausgeführt werden
-* Alternativ kann das Repository heruntergeladen werden und direkt aus Unity gestartet werden
+* Alternativ kann das [Repository](https://github.com/dschoeneborn/270Tetris/archive/master.zip) heruntergeladen werden und direkt aus Unity gestartet werden
 ## Sonstiges ##
 Ebenfalls steht eine [Präsentation](https://github.com/dschoeneborn/270Tetris/raw/misc/270Tetris.pptx) des Spiels bereit.
