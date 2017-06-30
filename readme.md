@@ -9,6 +9,8 @@ Damit es nicht zu einfach wird, wurde keine “nächster Stein” Anzeige hinzug
 
 Wir haben gehofft mit der Idee die Spieler noch länger zu fesseln, da der Spieler mittendrin statt nur dabei ist. Ein 360 Grad Kreis ist nicht möglich gewesen, da man sich sonst mit dem Kabel der Oculus zu einer Mumie eingewickelt hätte. 
 ## Steuerung ##
+Das Spiel kann Wahlweise mit einer Tastatur oder einem XBOX-Controller gespielt werden. Nachfolgend sind die verfügbaren Eingaben aufgelistet.
+
 Taste|Funktion
 -----|------------
 <kbd>←</kbd> oder ![xbox links](https://github.com/dschoeneborn/270Tetris/blob/misc/controlls/links-xbox.bmp)|Aktuellen Stein nach links bewegen
