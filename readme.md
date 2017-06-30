@@ -15,3 +15,9 @@ Taste|Funktion
 <kbd>→</kbd> oder ![xbox rechts](https://github.com/dschoeneborn/270Tetris/blob/misc/controlls/rechts-xbox.bmp)|Aktuellen Stein nach rechts bewegen
 <kbd>↓</kbd> oder ![xbox runter](https://github.com/dschoeneborn/270Tetris/blob/misc/controlls/runter-xbox.bmp)|Aktuellen Stein schnell nach unten bewegen
 <kbd>↑</kbd> oder ![xbox A](https://github.com/dschoeneborn/270Tetris/blob/misc/controlls/a.bmp) |Aktuellen Stein rotieren
+##Starten##
+Zum Starten des Spiels stehen zwei Möglichkeiten zur Verfügung
+* Es steht eine [kompilierte Version](https://github.com/dschoeneborn/270Tetris/raw/misc/Tetris.zip) bereit. Diese kann mit einem Doppelklick ausgeführt werden
+* Alternativ kann das Repository heruntergeladen werden und direkt aus Unity gestartet werden
+##Sonstiges##
+Ebenfalls steht eine [Präsentation](https://github.com/dschoeneborn/270Tetris/raw/misc/270Tetris.pptx) des Spiels bereit.
