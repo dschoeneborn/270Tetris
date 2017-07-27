@@ -1,4 +1,5 @@
 # 270° Tetris #
+Ein VR-Spiel von Björn Merschmeier, Sven Krefeld, Dennis Schöneborn und Tim Prange
 ## Spielidee ##
 Die Spielidee entspricht dem Tetris wie man es kennt. Das Gefühl beim Spielen im VR Raum soll ähnlich sein wie bei den originalen Tetris-Spielen, z. B. auf dem Gameboy. 
 
